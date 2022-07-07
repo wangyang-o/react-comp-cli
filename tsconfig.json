@@ -11,8 +11,8 @@
     "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
     "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
     "strict": true /* Enable all strict type-checking options. */,
-    "skipLibCheck": true /* Skip type checking all .d.ts files. */
-
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
+    "sourceMap": true /* Create source map files for emitted JavaScript files. */
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
     /* Projects */
@@ -54,11 +54,9 @@
 
     /* Emit */
 
-
     // "rootDir": "./src" /* 指定输出文件目录（用于输出），用于控制输出目录结构 */,
     // "declarationMap": true /* Create sourcemaps for d.ts files. */,
     // "emitDeclarationOnly": true,                      /* Only output d.ts files and not JavaScript files. */
-    // "sourceMap": true,                                /* Create source map files for emitted JavaScript files. */
     // "outFile": "./",                                  /* Specify a file that bundles all outputs into one JavaScript file. If 'declaration' is true, also designates a file that bundles all .d.ts output. */
     // "outDir": "./",                                   /* Specify an output folder for all emitted files. */
     // "removeComments": true,                           /* Disable emitting comments. */
@@ -106,5 +104,7 @@
 
     /* Completeness */
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
-  }
+  },
+  "exclude": ["example"],
+  "include": ["src","rollup.config.ts"]
 }
