@@ -11,19 +11,33 @@ import { terser } from "rollup-plugin-terser";
 import postcss from "rollup-plugin-postcss";
 import dts from "rollup-plugin-dts";
 import packageJson from "./package.json";
-
+import fs from "fs";
 const plugins = [
   typescript({ tsconfig: "./tsconfig.json", exclude: "./example" }),
   resolve(),
   commonjs(),
   postcss(),
 ];
-
-
+const componentsList: string[] = fs
+  .readdirSync("./src/components")
+  .filter((item) => item !== "index.ts");
+const folderBuilds: RollupOptions[] = componentsList.map((folder) => {
+  return {
+    input: `src/components/${folder}/index.ts`,
+    output: {
+      // ensure file destination is same as where the typings are
+      file: `dist/${folder}/index.js`,
+      sourcemap: true,
+      exports: "named",
+    },
+    plugins,
+    external: ["react", "react-dom"],
+  };
+});
 const config: RollupOptions[] = [
   // index打包
   {
-    input: "src/index.ts",
+    input: ["src/index.ts"],
     external: ["react"],
     plugins,
     output: [
@@ -41,12 +55,13 @@ const config: RollupOptions[] = [
       },
     ],
   },
+  ...folderBuilds,
   // 声明文件打包
   {
     input: "src/index.ts",
     // external: ["react-preview"],
     output: {
-      file: packageJson.types,
+      dir: packageJson.types,
       format: "esm",
     },
     plugins: [dts()],
