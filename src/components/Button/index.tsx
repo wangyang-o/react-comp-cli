@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './Button.scss'
+import styles from './index.scss'
 
 export const Button = () => {
   return (  

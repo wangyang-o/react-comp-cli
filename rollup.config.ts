@@ -1,6 +1,6 @@
 import { RollupOptions } from "rollup";
 // ts支持
-import typescript from "@rollup/plugin-typescript";
+import typescript from "rollup-plugin-typescript2";
 // 解决引入三方依赖
 import resolve from "@rollup/plugin-node-resolve";
 // 转化 commonjs 为 esm
@@ -19,36 +19,24 @@ const plugins = [
   typescript({ tsconfig: "./tsconfig.json", exclude: "./example" }),
   resolve(),
   commonjs(),
-  // postcss(),
+  postcss(),
 ];
-const blackList = ["index.ts", "index.d.ts"];
+const blackList = ["index.ts"];
 const componentsList: string[] = fs
   .readdirSync("./src/components")
   .filter((item) => !blackList.includes(item));
-const folderBuilds = componentsList.map((folder) => {
-  return [
-    {
-      input: `src/components/${folder}/index.ts`,
-      output: {
-        file: `dist/${folder}/index.js`,
-        sourcemap: true,
-        format: "esm",
-      },
-      plugins,
-      external: ["react"],
+const folderBuilds: RollupOptions[] = componentsList.map((folder) => {
+  return {
+    input: `src/components/${folder}/index.tsx`,
+    output: {
+      file: `dist/${folder}/index.js`,
+      sourcemap: true,
+      format: "esm",
     },
-    // 声明文件打包
-    {
-      input: `src/components/${folder}/index.ts`,
-      output: {
-        file: `dist/${folder}/index.d.ts`,
-        format: "esm",
-      },
-      plugins: [dts()],
-    },
-  ];
+    plugins,
+    external: ["react"],
+  };
 });
-const comp: RollupOptions[] = folderBuilds.flat(Infinity) as RollupOptions[];
 const config: RollupOptions[] = [
   // index打包
   {
@@ -80,7 +68,7 @@ const config: RollupOptions[] = [
       },
     ],
   },
-  ...comp,
+  ...folderBuilds,
   // 声明文件打包
   {
     input: "src/index.ts",
