@@ -9,37 +9,62 @@ import commonjs from "@rollup/plugin-commonjs";
 import { terser } from "rollup-plugin-terser";
 // 编译css预处理器
 import postcss from "rollup-plugin-postcss";
+// 声明文件
 import dts from "rollup-plugin-dts";
+// css浏览器前缀
 import packageJson from "./package.json";
 import fs from "fs";
+
 const plugins = [
   typescript({ tsconfig: "./tsconfig.json", exclude: "./example" }),
   resolve(),
   commonjs(),
-  postcss(),
+  // postcss(),
 ];
+const blackList = ["index.ts", "index.d.ts"];
 const componentsList: string[] = fs
   .readdirSync("./src/components")
-  .filter((item) => item !== "index.ts");
-const folderBuilds: RollupOptions[] = componentsList.map((folder) => {
-  return {
-    input: `src/components/${folder}/index.ts`,
-    output: {
-      // ensure file destination is same as where the typings are
-      file: `dist/${folder}/index.js`,
-      sourcemap: true,
-      exports: "named",
+  .filter((item) => !blackList.includes(item));
+const folderBuilds = componentsList.map((folder) => {
+  return [
+    {
+      input: `src/components/${folder}/index.ts`,
+      output: {
+        file: `dist/${folder}/index.js`,
+        sourcemap: true,
+        format: "esm",
+      },
+      plugins,
+      external: ["react"],
     },
-    plugins,
-    external: ["react", "react-dom"],
-  };
+    // 声明文件打包
+    {
+      input: `src/components/${folder}/index.ts`,
+      output: {
+        file: `dist/${folder}/index.d.ts`,
+        format: "esm",
+      },
+      plugins: [dts()],
+    },
+  ];
 });
+const comp: RollupOptions[] = folderBuilds.flat(Infinity) as RollupOptions[];
 const config: RollupOptions[] = [
   // index打包
   {
     input: ["src/index.ts"],
     external: ["react"],
-    plugins,
+    plugins: [
+      typescript({ tsconfig: "./tsconfig.json", exclude: "./example" }),
+      resolve(),
+      commonjs(),
+      postcss({
+        modules: true,
+        use: ["sass"],
+        extensions: ["scss", "css"],
+        extract: true,
+      }),
+    ],
     output: [
       {
         file: packageJson.module,
@@ -55,13 +80,12 @@ const config: RollupOptions[] = [
       },
     ],
   },
-  ...folderBuilds,
+  ...comp,
   // 声明文件打包
   {
     input: "src/index.ts",
-    // external: ["react-preview"],
     output: {
-      dir: packageJson.types,
+      file: packageJson.types,
       format: "esm",
     },
     plugins: [dts()],
