@@ -11,15 +11,28 @@ import { terser } from "rollup-plugin-terser";
 import postcss from "rollup-plugin-postcss";
 // 声明文件
 import dts from "rollup-plugin-dts";
-// css浏览器前缀
+// babel
+import { babel } from "@rollup/plugin-babel";
+// css前缀
+import autoprefixer from "autoprefixer";
+
 import packageJson from "./package.json";
 import fs from "fs";
 
 const plugins = [
-  typescript({ tsconfig: "./tsconfig.json", exclude: "./example" }),
+  typescript(),
   resolve(),
   commonjs(),
-  postcss(),
+  babel({
+    extensions: [".ts", ".tsx"],
+    babelHelpers: "runtime",
+  }),
+  postcss({
+    modules: false,
+    extensions: ["scss", "css"],
+    extract: "style.css",
+    plugins: [autoprefixer()],
+  }),
 ];
 const blackList = ["index.ts"];
 const componentsList: string[] = fs
@@ -42,17 +55,7 @@ const config: RollupOptions[] = [
   {
     input: ["src/index.ts"],
     external: ["react"],
-    plugins: [
-      typescript({ tsconfig: "./tsconfig.json", exclude: "./example" }),
-      resolve(),
-      commonjs(),
-      postcss({
-        modules: true,
-        use: ["sass"],
-        extensions: ["scss", "css"],
-        extract: true,
-      }),
-    ],
+    plugins,
     output: [
       {
         file: packageJson.module,
