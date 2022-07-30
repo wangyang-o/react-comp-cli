@@ -24,7 +24,7 @@ const plugins = [
 const blackList = ["index.ts"];
 const componentsList: string[] = fs
   .readdirSync("./src/components")
-  .filter((item) => !blackList.includes(item));
+  .filter((item: string) => !blackList.includes(item));
 const folderBuilds: RollupOptions[] = componentsList.map((folder) => {
   return {
     input: `src/components/${folder}/index.tsx`,
