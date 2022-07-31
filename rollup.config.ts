@@ -54,7 +54,7 @@ const folderBuilds: RollupOptions[] = componentsList.map((folder) => {
 const config: RollupOptions[] = [
   // index打包
   {
-    input: ["src/index.ts"],
+    input: "src/index.ts",
     external: ["react"],
     output: [
       {
