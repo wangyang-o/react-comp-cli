@@ -4,7 +4,6 @@ import { PreviewProps } from "./index.types";
 
 
 export const Preview = (props: PreviewProps) => {
-  console.log(props)
   return (
     <div className={styles.Preview}>Preview</div>
   )

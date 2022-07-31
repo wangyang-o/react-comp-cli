@@ -16,8 +16,8 @@ import { babel } from "@rollup/plugin-babel";
 // css前缀
 import autoprefixer from "autoprefixer";
 
-import packageJson from "./package.json";
 import fs from "fs";
+import packageJson from "./package.json";
 
 const plugins = [
   typescript(),
@@ -28,6 +28,7 @@ const plugins = [
     babelHelpers: "runtime",
   }),
   postcss({
+    //关闭 css modules
     modules: false,
     extensions: ["scss", "css"],
     extract: "style.css",
@@ -55,7 +56,6 @@ const config: RollupOptions[] = [
   {
     input: ["src/index.ts"],
     external: ["react"],
-    plugins,
     output: [
       {
         file: packageJson.module,

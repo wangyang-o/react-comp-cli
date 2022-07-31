@@ -10,6 +10,9 @@
     "build": "npm run remove && rollup --config rollup.config.ts --configPlugin rollup-plugin-typescript2 --w"
   },
   "devDependencies": {
+    "@babel/core": "^7.18.9",
+    "@babel/plugin-transform-runtime": "^7.18.9",
+    "@babel/preset-env": "^7.18.9",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^22.0.1",
     "@rollup/plugin-node-resolve": "^13.3.0",
@@ -19,18 +22,13 @@
     "node-sass": "^7.0.1",
     "postcss": "^8.4.14",
     "react": "^18.2.0",
-    "rollup": "^2.75.7",
+    "rollup": "^2.77.2",
     "rollup-plugin-dts": "^4.2.2",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.32.1",
     "tslib": "^2.4.0",
     "typescript": "^4.7.4"
-  },
-  "dependencies": {
-    "@babel/core": "^7.18.9",
-    "@babel/plugin-transform-runtime": "^7.18.9",
-    "@babel/preset-env": "^7.18.9"
   },
   "browserslist": [
     "defaults",
