@@ -3,13 +3,21 @@
     [
       "@babel/preset-env",
       {
-        "modules": false
+        "modules": false,
+        "targets": {
+          "chrome": 49,
+          "ie": 11
+        }
       }
-    ]
+    ],
+    "@babel/preset-react"
   ],
+  "extensions": [".ts", ".tsx", ".scss"],
+  "babelHelpers": "runtime",
+
   "plugins": [
     // 解决多个地方使用相同代码导致打包重复的问题
     ["@babel/plugin-transform-runtime"]
   ],
-  "ignore": ["node_modules/**"]
+  "exclude": "node_modules/**"
 }

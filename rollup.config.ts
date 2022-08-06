@@ -23,17 +23,14 @@ const plugins = [
   typescript(),
   resolve(),
   commonjs(),
-  babel({
-    extensions: [".ts", ".tsx"],
-    babelHelpers: "runtime",
-  }),
   postcss({
     //关闭 css modules
-    modules: false,
+    modules: true,
     extensions: ["scss", "css"],
     extract: "style.css",
     plugins: [autoprefixer()],
   }),
+  babel(),
 ];
 const blackList = ["index.ts"];
 const componentsList: string[] = fs
@@ -56,6 +53,7 @@ const config: RollupOptions[] = [
   {
     input: "src/index.ts",
     external: ["react"],
+    plugins,
     output: [
       {
         file: packageJson.module,

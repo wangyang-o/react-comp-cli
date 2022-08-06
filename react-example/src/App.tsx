@@ -1,10 +1,10 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Preview } from "@wy/react-comp";
 
 function App() {
   return (
     <div className="App">
+      <Preview></Preview>
     </div>
   );
 }
