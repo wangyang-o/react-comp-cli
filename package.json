@@ -2,12 +2,16 @@
   "name": "@wy/react-comp",
   "version": "0.0.1",
   "main": "dist/index.js",
-  "module": "dist/index.js",
   "types": "./dist/types/index.d.ts",
   "license": "MIT",
+  "author": {
+    "name": "wangyang",
+    "email": "1370228031@qq.com",
+    "url": "https://github.com/wangyang-o"
+  },
   "scripts": {
     "remove": "rm -rf dist",
-    "build": "npm run remove && rollup --config rollup.config.ts --configPlugin rollup-plugin-typescript2 --w"
+    "build": "npm run remove && rollup --config rollup.config.ts --configPlugin rollup-plugin-typescript2"
   },
   "devDependencies": {
     "@babel/core": "^7.18.9",
@@ -26,8 +30,11 @@
     "rollup": "^2.77.2",
     "rollup-plugin-dts": "^4.2.2",
     "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-scss": "^3.0.0",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.32.1",
+    "rollup-plugin-visualizer": "^5.7.1",
+    "sass": "^1.54.3",
     "tslib": "^2.4.0",
     "typescript": "^4.7.4"
   },

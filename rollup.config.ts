@@ -15,39 +15,23 @@ import dts from "rollup-plugin-dts";
 import { babel } from "@rollup/plugin-babel";
 // css前缀
 import autoprefixer from "autoprefixer";
-
-import fs from "fs";
+// 可视化分析rollup打包
+import { visualizer } from "rollup-plugin-visualizer";
 import packageJson from "./package.json";
 
 const plugins = [
-  typescript(),
-  resolve(),
-  commonjs(),
   postcss({
-    //关闭 css modules
-    modules: true,
     extensions: ["scss", "css"],
     extract: "style.css",
     plugins: [autoprefixer()],
   }),
+  typescript(),
+  resolve(),
+  commonjs(),
   babel(),
+  visualizer({ open: true, filename: "analyze.html" }),
 ];
-const blackList = ["index.ts"];
-const componentsList: string[] = fs
-  .readdirSync("./src/components")
-  .filter((item: string) => !blackList.includes(item));
-const folderBuilds: RollupOptions[] = componentsList.map((folder) => {
-  return {
-    input: `src/components/${folder}/index.tsx`,
-    output: {
-      file: `dist/${folder}/index.js`,
-      sourcemap: true,
-      format: "esm",
-    },
-    plugins,
-    external: ["react"],
-  };
-});
+
 const config: RollupOptions[] = [
   // index打包
   {
@@ -56,8 +40,9 @@ const config: RollupOptions[] = [
     plugins,
     output: [
       {
-        file: packageJson.module,
+        dir: "dist",
         format: "esm",
+        preserveModules: true,
         sourcemap: true,
       },
       // 压缩文件打包
@@ -69,15 +54,16 @@ const config: RollupOptions[] = [
       },
     ],
   },
-  ...folderBuilds,
   // 声明文件打包
   {
     input: "src/index.ts",
     output: {
-      file: packageJson.types,
+      dir: "dist/types",
       format: "esm",
+      preserveModules: true,
     },
     plugins: [dts()],
+    external: [/\/*.scss/],
   },
 ];
 export default config;
