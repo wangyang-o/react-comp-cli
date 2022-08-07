@@ -17,7 +17,6 @@ import { babel } from "@rollup/plugin-babel";
 import autoprefixer from "autoprefixer";
 // 可视化分析rollup打包
 import { visualizer } from "rollup-plugin-visualizer";
-import packageJson from "./package.json";
 
 const plugins = [
   postcss({
