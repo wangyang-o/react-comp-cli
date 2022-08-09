@@ -17,6 +17,8 @@ import { babel } from "@rollup/plugin-babel";
 import autoprefixer from "autoprefixer";
 // 可视化分析rollup打包
 import { visualizer } from "rollup-plugin-visualizer";
+// 规范化
+import eslint from "@rollup/plugin-eslint";
 
 const plugins = [
   postcss({
@@ -24,11 +26,12 @@ const plugins = [
     extract: "style.css",
     plugins: [autoprefixer()],
   }),
+  eslint({ throwOnError: true }),
   typescript(),
   resolve(),
   commonjs(),
-  babel(),
-  visualizer({ open: true, filename: "analyze.html" }),
+  babel({ babelHelpers: "bundled" }),
+  visualizer({ filename: "analyze.html" }),
 ];
 
 const config: RollupOptions[] = [
