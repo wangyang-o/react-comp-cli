@@ -16,7 +16,6 @@
     "sourceMap": true /* Create source map files for emitted JavaScript files. */,
 
   },
-  "include": ["src","rollup.config.ts", "global.d.ts"],
 
   
 }

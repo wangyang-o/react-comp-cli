@@ -3,7 +3,6 @@
     [
       "@babel/preset-env",
       {
-        "modules": false,
         "targets": {
           "chrome": 49,
           "ie": 11
@@ -12,8 +11,7 @@
     ],
     "@babel/preset-react"
   ],
-  "extensions": [".ts", ".tsx", ".scss"],
-  "babelHelpers": "runtime",
+  "extensions": [".ts", ".tsx"],
 
   "plugins": [
     // 解决多个地方使用相同代码导致打包重复的问题
