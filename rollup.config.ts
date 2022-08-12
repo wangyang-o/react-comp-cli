@@ -15,6 +15,7 @@ import dts from "rollup-plugin-dts";
 import { babel } from "@rollup/plugin-babel";
 // css前缀
 import autoprefixer from "autoprefixer";
+import postcssModules from "postcss-modules";
 // 可视化分析rollup打包
 import { visualizer } from "rollup-plugin-visualizer";
 // 规范化
@@ -22,9 +23,17 @@ import eslint from "@rollup/plugin-eslint";
 
 const plugins = [
   postcss({
-    extensions: ["scss", "css"],
-    extract: "style.css",
-    plugins: [autoprefixer()],
+    // extensions: ["*.scss", "*.css"],
+    extract: true,
+    modules: true,
+    use: ["sass"],
+    plugins: [
+      autoprefixer(),
+      postcssModules({
+        getJSON: () => undefined,
+        generateScopedName: "[name]_[folder]",
+      }),
+    ],
   }),
   eslint({ throwOnError: true }),
   typescript(),
@@ -40,17 +49,15 @@ const config: RollupOptions[] = [
     input: "src/index.ts",
     external: ["react"],
     plugins,
+    preserveModules: true,
     output: [
       {
         dir: "dist",
-        format: "esm",
-        preserveModules: true,
         sourcemap: true,
       },
       // 压缩文件打包
       {
-        file: "dist/index.min.js",
-        format: "esm",
+        dir: "dist/min",
         sourcemap: true,
         plugins: [terser()],
       },
@@ -59,10 +66,9 @@ const config: RollupOptions[] = [
   // 声明文件打包
   {
     input: "src/index.ts",
+    preserveModules: true,
     output: {
       dir: "dist/types",
-      format: "esm",
-      preserveModules: true,
     },
     plugins: [dts()],
     external: [/\/*.scss/],

@@ -1,8 +1,9 @@
 import React from 'react'
-// import  './index.scss'
-
-export const Preview = () => {
+import styles from './preview.scss'
+import { PreviewProps } from "./types";
+export const Preview = (props: PreviewProps) => {
+  console.log(props)
   return (
-    <div className='Preview'>Preview</div>
+    <div className={styles.Preview}>Preview</div>
   )
 }

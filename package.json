@@ -10,8 +10,8 @@
     "url": "https://github.com/wangyang-o"
   },
   "scripts": {
-    "remove": "rm -rf dist",
-    "build": "npm run remove && rollup --config rollup.config.ts --configPlugin rollup-plugin-typescript2"
+    "clean": "rm -rf dist",
+    "build": "pnpm clean && rollup --config rollup.config.ts --configPlugin rollup-plugin-typescript2"
   },
   "devDependencies": {
     "@babel/core": "^7.18.9",

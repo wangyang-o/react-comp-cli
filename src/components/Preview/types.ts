@@ -4,7 +4,7 @@ export interface PreviewProps {
   fileName?: string;
   size?: string;
   visible?: boolean;
-  onClose?: Function;
-  onDownload?: Function;
-  onRemove?: Function;
+  onClose?: () => void;
+  onDownload?: () => void;
+  onRemove?: () => void;
 }
