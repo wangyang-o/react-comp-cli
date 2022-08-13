@@ -37,7 +37,6 @@
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.32.1",
     "rollup-plugin-visualizer": "^5.7.1",
-    "sass": "^1.54.3",
     "tslib": "^2.4.0",
     "typescript": "^4.7.4"
   },

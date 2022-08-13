@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@comp/*": ["src/components/*"],
+      "@comp/*": ["src/components/*"]
     },
     "jsx": "react",
     "target": "es2016" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
@@ -14,8 +14,6 @@
     "strict": true /* Enable all strict type-checking options. */,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "sourceMap": true /* Create source map files for emitted JavaScript files. */,
-
-  },
-
-  
+    "plugins": [{ "name": "typescript-plugin-css-modules" }]
+  }
 }
