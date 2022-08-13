@@ -1,10 +1,10 @@
 import './App.css';
-// import { Preview } from "@wy/react-comp";
-import '@wy/react-comp/dist/style.css'
+import { Preview } from "@wy/react-comp";
+import '@wy/react-comp/dist/styles.css'
 function App() {
   return (
     <div className="App">
-      {/* <Preview></Preview> */}
+      <Preview></Preview>
     </div>
   );
 }
