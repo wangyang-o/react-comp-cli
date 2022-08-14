@@ -14,7 +14,7 @@ import dts from "rollup-plugin-dts";
 // babel
 import { babel } from "@rollup/plugin-babel";
 // css前缀
-import autoprefixer from "autoprefixer";
+// import autoprefixer from "autoprefixer";
 // 可视化分析rollup打包
 import { visualizer } from "rollup-plugin-visualizer";
 // 规范化
@@ -23,7 +23,7 @@ import eslint from "@rollup/plugin-eslint";
 const plugins = [
   postcss({
     extract: "styles.css",
-    plugins: [autoprefixer()],
+    // plugins: [autoprefixer()],
   }),
   eslint({ throwOnError: true }),
   typescript(),
