@@ -2,6 +2,6 @@ import React from 'react'
 
 export const Button = () => {
   return (
-    <button className='button'>Test Button</button>
+    <button className='button'>这是按钮</button>
   )
 }
