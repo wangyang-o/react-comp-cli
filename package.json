@@ -1,6 +1,6 @@
 {
   "name": "@wytools/react-comp",
-  "version": "0.0.2-0",
+  "version": "0.0.2",
   "main": "dist/index.js",
   "types": "./dist/types/index.d.ts",
   "license": "MIT",
