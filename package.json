@@ -1,5 +1,5 @@
 {
-  "name": "@wy/react-comp",
+  "name": "@wytools/react-comp",
   "version": "0.0.1",
   "main": "dist/index.js",
   "types": "./dist/types/index.d.ts",
